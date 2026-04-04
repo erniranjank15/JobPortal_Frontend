@@ -1,201 +1,32 @@
-<<<<<<< HEAD
-import { createAsyncThunk  } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createJob, getAllJobs, getJobById, updateJob, deleteJob, searchJob } from "../../API/jobAPI.js";
 
-import{
-    createJob,
-    getAllJobs,
-    getJobById,
-    updateJob,
-    deleteJob,
-    searchJob   
-} from "../../API/jobAPI.js";
+export const createJobThunk = createAsyncThunk('job/createJob', async (jobData, { rejectWithValue }) => {
+    try { return (await createJob(jobData)).data.data; }
+    catch (error) { return rejectWithValue(error || 'Job creation failed'); }
+});
 
+export const getAllJobsThunk = createAsyncThunk('job/getAllJobs', async (_, { rejectWithValue }) => {
+    try { return (await getAllJobs()).data.data; }
+    catch (error) { return rejectWithValue(error || 'Failed to fetch jobs'); }
+});
 
-//Create Job
-export const createJobThunk = createAsyncThunk(
-    'job/createJob',    
-    async (jobData, { rejectWithValue }) => {
-        try {
-            const response = await createJob(jobData);
-            return response.data.data;
-        } catch (error) {
-            return rejectWithValue(error || 'Job creation failed');
-        }
-    }
-);
+export const getJobByIdThunk = createAsyncThunk('job/getJobById', async (id, { rejectWithValue }) => {
+    try { return (await getJobById(id)).data.data; }
+    catch (error) { return rejectWithValue(error || 'Failed to fetch job details'); }
+});
 
+export const updateJobThunk = createAsyncThunk('job/updateJob', async ({ id, jobData }, { rejectWithValue }) => {
+    try { return (await updateJob(id, jobData)).data.data; }
+    catch (error) { return rejectWithValue(error || 'Job update failed'); }
+});
 
-//Get All Jobs
-export const getAllJobsThunk = createAsyncThunk(
-    'job/getAllJobs',   
-    async (_, { rejectWithValue }) => {
-        try {
-            const response = await getAllJobs();
-            return response.data.data;
-        }
-        catch (error) {
-            return rejectWithValue(error || 'Failed to fetch jobs');
-        }
-    }
-);
+export const deleteJobThunk = createAsyncThunk('job/deleteJob', async (id, { rejectWithValue }) => {
+    try { await deleteJob(id); return id; }
+    catch (error) { return rejectWithValue(error || 'Failed to delete job'); }
+});
 
-
-//Get Job By ID
-export const getJobByIdThunk = createAsyncThunk(
-    'job/getJobById',
-    async (id, { rejectWithValue }) => {
-        try {
-            const response = await getJobById(id);
-            return response.data.data;
-        } catch (error) {
-            return rejectWithValue(error || 'Failed to fetch job details');
-        }
-    }
-);
-
-
-//Update Job
-export const updateJobThunk = createAsyncThunk(
-    'job/updateJob',
-    async ({ id, jobData }, { rejectWithValue }) => {
-        try {
-            const response = await updateJob(id, jobData);
-            return response.data.data;
-        } catch (error) {
-            return rejectWithValue(error || 'Job update failed');
-        }
-    }
-);
-
-
-//Delete Job
-export const deleteJobThunk = createAsyncThunk(
-    'job/deleteJob',
-    async (id, { rejectWithValue }) => {
-        try {
-            await deleteJob(id);
-            return id;
-        } catch (error) {
-            return rejectWithValue(error || 'Failed to delete job');
-        }
-    }
-);
-
-
-//Search Job
-export const searchJobThunk = createAsyncThunk(
-    'job/searchJob',
-    async (query, { rejectWithValue }) => {
-        try {
-            const response = await searchJob(query);
-            return response.data.data;
-        } catch (error) {
-            return rejectWithValue(error || 'Job search failed');
-        }
-    }
-);
-
-
-
-
-=======
-import { createAsyncThunk  } from '@reduxjs/toolkit';
-
-import{
-    createJob,
-    getAllJobs,
-    getJobById,
-    updateJob,
-    deleteJob,
-    searchJob   
-} from "../../API/jobAPI.js";
-
-
-//Create Job
-export const createJobThunk = createAsyncThunk(
-    'job/createJob',    
-    async (jobData, { rejectWithValue }) => {
-        try {
-            const response = await createJob(jobData);
-            return response.data.data;
-        } catch (error) {
-            return rejectWithValue(error || 'Job creation failed');
-        }
-    }
-);
-
-
-//Get All Jobs
-export const getAllJobsThunk = createAsyncThunk(
-    'job/getAllJobs',   
-    async (_, { rejectWithValue }) => {
-        try {
-            const response = await getAllJobs();
-            return response.data.data;
-        }
-        catch (error) {
-            return rejectWithValue(error || 'Failed to fetch jobs');
-        }
-    }
-);
-
-
-//Get Job By ID
-export const getJobByIdThunk = createAsyncThunk(
-    'job/getJobById',
-    async (id, { rejectWithValue }) => {
-        try {
-            const response = await getJobById(id);
-            return response.data.data;
-        } catch (error) {
-            return rejectWithValue(error || 'Failed to fetch job details');
-        }
-    }
-);
-
-
-//Update Job
-export const updateJobThunk = createAsyncThunk(
-    'job/updateJob',
-    async ({ id, jobData }, { rejectWithValue }) => {
-        try {
-            const response = await updateJob(id, jobData);
-            return response.data.data;
-        } catch (error) {
-            return rejectWithValue(error || 'Job update failed');
-        }
-    }
-);
-
-
-//Delete Job
-export const deleteJobThunk = createAsyncThunk(
-    'job/deleteJob',
-    async (id, { rejectWithValue }) => {
-        try {
-            await deleteJob(id);
-            return id;
-        } catch (error) {
-            return rejectWithValue(error || 'Failed to delete job');
-        }
-    }
-);
-
-
-//Search Job
-export const searchJobThunk = createAsyncThunk(
-    'job/searchJob',
-    async (query, { rejectWithValue }) => {
-        try {
-            const response = await searchJob(query);
-            return response.data.data;
-        } catch (error) {
-            return rejectWithValue(error || 'Job search failed');
-        }
-    }
-);
-
-
-
-
->>>>>>> 1f3bf29 (updated)
+export const searchJobThunk = createAsyncThunk('job/searchJob', async (query, { rejectWithValue }) => {
+    try { return (await searchJob(query)).data.data; }
+    catch (error) { return rejectWithValue(error || 'Job search failed'); }
+});
