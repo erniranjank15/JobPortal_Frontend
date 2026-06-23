@@ -22,7 +22,7 @@ export const confirmToast = (message, onConfirm) => {
       </div>
     ),
     {
-      autoClose: false,
+      autoClose: true,
       closeOnClick: false,
       draggable: false,
       closeButton: false,

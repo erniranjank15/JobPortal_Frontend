@@ -4,6 +4,7 @@ import { getMyApplicationsThunk } from "../features/application/applnThunk";
 import { fetchCurrentUser } from "../features/auth/authThunk";
 import Loading from "../components/Loading";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const statusStyle = {
   pending: "bg-yellow-100 text-yellow-700",
@@ -25,24 +26,24 @@ export default function Dashboard() {
     <div className="max-w-4xl mx-auto px-4 py-6 md:py-8">
       {/* Profile Card */}
       <div className="bg-white rounded-xl shadow p-4 md:p-6 mb-6 flex flex-wrap items-center gap-4">
-        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl font-bold shrink-0">
+        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gray-900 text-white flex items-center justify-center text-xl font-bold shrink-0">
           {user?.name?.charAt(0).toUpperCase()}
         </div>
         <div className="flex-1 min-w-0">
           <h2 className="text-lg md:text-xl font-bold text-gray-800 truncate">{user?.name}</h2>
           <p className="text-gray-500 text-sm truncate">{user?.email}</p>
-          <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full capitalize">{user?.role}</span>
+          <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full capitalize">{user?.role}</span>
         </div>
         {user?.resume && (
           <a href={user.resume} target="_blank" rel="noreferrer"
-            className="text-sm text-blue-600 hover:underline whitespace-nowrap">View Resume</a>
+            className="text-sm text-gray-900 hover:underline whitespace-nowrap">View Resume</a>
         )}
       </div>
 
       {/* Applications Header */}
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-bold text-gray-800">My Applications</h3>
-        <Link to="/jobs" className="text-sm text-blue-600 hover:underline">Browse Jobs →</Link>
+        <h3 className="text-lg font-bold text-gray-900">My Applications</h3>
+        <Link to="/jobs" className="text-sm text-gray-900 hover:underline">Browse Jobs →</Link>
       </div>
 
       {loading ? <Loading /> : error ? (
@@ -50,7 +51,7 @@ export default function Dashboard() {
       ) : applications?.length === 0 ? (
         <div className="bg-white rounded-xl shadow p-8 text-center text-gray-500">
           <p className="text-4xl mb-3">📋</p>
-          <p>No applications yet. <Link to="/jobs" className="text-blue-600 hover:underline">Browse jobs</Link></p>
+          <p>No applications yet. <Link to="/jobs" className="text-gray-900 hover:underline">Browse jobs</Link></p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -68,6 +69,10 @@ export default function Dashboard() {
           ))}
         </div>
       )}
+
+
+       
+    
     </div>
   );
 }

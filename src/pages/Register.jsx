@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../features/auth/authThunk";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import Footer from "../components/Footer";
+
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ export default function Register() {
       toast.success("Registered successfully! Please login.");
       navigate("/login");
     } else {
-      toast.error(res.payload || "Registration failed");
+      toast.error(res.payload?.message || "Registration failed");
     }
   };
 
@@ -30,7 +32,7 @@ export default function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl shadow-md w-full max-w-md space-y-4">
-        <h2 className="text-2xl font-bold text-center text-blue-600">Register</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-900">Register</h2>
         <input className={inputClass} placeholder="Full Name" value={form.name}
           onChange={e => setForm({ ...form, name: e.target.value })} required />
         <input className={inputClass} type="email" placeholder="Email" value={form.email}
@@ -43,20 +45,27 @@ export default function Register() {
         </select>
         {form.role === "applicant" && (
           <div>
-            <label className="text-sm text-gray-600 block mb-1">Resume (PDF/DOC)</label>
+            <label className="text-sm text-gray-700 block mb-1">Resume (PDF/DOC)</label>
             <input type="file" accept=".pdf,.doc,.docx"
               onChange={e => setResume(e.target.files[0])}
-              className="text-sm text-gray-500 w-full" required />
+              className="text-sm text-gray-900 w-full" required />
           </div>
         )}
         <button type="submit" disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50">
+          className="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-900 disabled:opacity-50">
           {loading ? "Registering..." : "Register"}
         </button>
         <p className="text-center text-sm text-gray-500">
-          Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
+          Already have an account? <Link to="/login" className="text-gray-900 hover:underline">Login</Link>
         </p>
+
+
+      
       </form>
+
+
+    
     </div>
+    
   );
 }

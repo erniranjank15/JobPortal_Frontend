@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllJobsThunk, searchJobThunk } from "../features/job/jobThunk";
 import JobCard from "../components/JobCard";
 import Loading from "../components/Loading";
+import Footer from "../components/Footer";  
+
 
 export default function Jobs() {
   const dispatch = useDispatch();
@@ -34,7 +36,7 @@ export default function Jobs() {
           value={keyword}
           onChange={e => setKeyword(e.target.value)}
         />
-        <button type="submit" className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 text-sm">Search</button>
+        <button type="submit" className="bg-gray-900 text-white px-5 py-2 rounded-lg hover:bg-gray-900 text-sm">Search</button>
         {keyword && (
           <button type="button" onClick={handleClear} className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 text-sm">Clear</button>
         )}
@@ -51,6 +53,8 @@ export default function Jobs() {
           {jobs?.map(job => <JobCard key={job._id} job={job} />)}
         </div>
       )}
+
+      
     </div>
   );
 }

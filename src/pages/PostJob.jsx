@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { createJobThunk } from "../features/job/jobThunk";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Footer from "../components/Footer";
 
-const inputClass = "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500";
+
+
+const inputClass = "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900";
 
 export default function PostJob() {
   const dispatch = useDispatch();
@@ -46,10 +49,14 @@ export default function PostJob() {
           {["Full-time", "Part-time", "Contract", "Internship"].map(t => <option key={t}>{t}</option>)}
         </select>
         <button type="submit" disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium">
+          className="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-900 disabled:opacity-50 font-medium">
           {loading ? "Posting..." : "Post Job"}
         </button>
       </form>
+
+
+
+     
     </div>
   );
 }

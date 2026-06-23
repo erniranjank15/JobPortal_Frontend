@@ -18,11 +18,11 @@ const JobCard = ({job}) => {
     <div onClick={()=>navigate(`/jobs/${job._id}`)} className='bg-white border rounded-lg p-4 shadow-lg transition cursor-pointer'>
       <h2 className='text-lg font-semibold text-gray-800'>{job.title}</h2>
       <p className='text-sm text-gray-500 mt-1'>{job.location || 'All India'}</p>
-      <p className='text-sm text-green-600 mt-1'>{job.salary ? `₹${job.salary}` : 'Not Disclosed'}</p>
+      <p className='text-sm text-green-800 mt-1'>{job.salary ? `₹${job.salary}` : 'Not Disclosed'}</p>
       <button onClick={(e)=>{
           e.stopPropagation();
           navigate(`/jobs/${job._id}`)
-      }} className='mt-3 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'>View Details</button>
+      }} className='mt-3 bg-gray-900 text-white px-3 py-1 rounded hover:bg-gray-900'>View Details</button>
     </div>
   )
 }

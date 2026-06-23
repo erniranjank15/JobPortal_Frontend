@@ -5,6 +5,7 @@ import { getJobByIdThunk } from "../features/job/jobThunk";
 import { applyForJobThunk } from "../features/application/applnThunk";
 import Loading from "../components/Loading";
 import { toast } from "react-toastify";
+import Footer from "../components/Footer";
 
 export default function JobDetails() {
   const { id } = useParams();
@@ -32,11 +33,11 @@ export default function JobDetails() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <button onClick={() => navigate(-1)} className="text-blue-600 text-sm mb-4 hover:underline">← Back</button>
+      <button onClick={() => navigate(-1)} className="text-gray-900 text-sm mb-4 hover:underline">← Back</button>
       <div className="bg-white rounded-xl shadow p-6 space-y-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">{jobDetails.title}</h1>
-          <p className="text-blue-600 font-semibold text-lg">{jobDetails.company}</p>
+          <p className="text-gray-900 font-semibold text-lg">{jobDetails.company}</p>
         </div>
         <div className="flex flex-wrap gap-4 text-gray-500 text-sm">
           <span>📍 {jobDetails.location}</span>
@@ -51,13 +52,13 @@ export default function JobDetails() {
           <h3 className="font-semibold text-gray-700 mb-2">Required Skills</h3>
           <div className="flex flex-wrap gap-2">
             {jobDetails.skills?.map(skill => (
-              <span key={skill} className="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full">{skill}</span>
+              <span key={skill} className="bg-blue-100 text-gray-900 text-xs px-3 py-1 rounded-full">{skill}</span>
             ))}
           </div>
         </div>
         {user?.role === "applicant" && !applied && (
           <button onClick={handleApply} disabled={applying}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50">
+            className="bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-900 disabled:opacity-50">
             {applying ? "Applying..." : "Apply Now"}
           </button>
         )}
@@ -66,10 +67,12 @@ export default function JobDetails() {
         )}
         {!user && (
           <p className="text-sm text-gray-500">
-            <a href="/login" className="text-blue-600 hover:underline">Login</a> to apply for this job.
+            <a href="/login" className="text-gray-900 hover:underline">Login</a> to apply for this job.
           </p>
         )}
       </div>
+
+    
     </div>
   );
 }

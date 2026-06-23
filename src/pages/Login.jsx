@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/auth/authThunk";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import Footer from "../components/Footer";
+
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -28,19 +30,23 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl shadow-md w-full max-w-md space-y-4">
-        <h2 className="text-2xl font-bold text-center text-blue-600">Login</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-900">Login</h2>
         <input className={inputClass} type="email" placeholder="Email" value={form.email}
           onChange={e => setForm({ ...form, email: e.target.value })} required />
         <input className={inputClass} type="password" placeholder="Password" value={form.password}
           onChange={e => setForm({ ...form, password: e.target.value })} required />
         <button type="submit" disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50">
+          className="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-900 disabled:opacity-50">
           {loading ? "Logging in..." : "Login"}
         </button>
         <p className="text-center text-sm text-gray-500">
-          No account? <Link to="/register" className="text-blue-600 hover:underline">Register</Link>
+          No account? <Link to="/register" className="text-gray-900 hover:underline">Register</Link>
         </p>
       </form>
+
+
+
+
     </div>
   );
 }

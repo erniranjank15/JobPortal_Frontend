@@ -5,6 +5,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { toast } from "react-toastify";
 import { confirmToast } from "../components/ConfirmToast";
+import Footer from "../components/Footer";
+
+
 
 const inputClass = "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500";
 
@@ -77,7 +80,7 @@ export default function EditJob() {
         </select>
         <div className="flex gap-3">
           <button type="submit" disabled={loading}
-            className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium">
+            className="flex-1 bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-900 disabled:opacity-50 font-medium">
             {loading ? "Saving..." : "Save Changes"}
           </button>
           <button type="button" onClick={handleDelete}
@@ -86,6 +89,8 @@ export default function EditJob() {
           </button>
         </div>
       </form>
+
+
     </div>
   );
 }

@@ -6,6 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { toast } from "react-toastify";
 import { confirmToast } from "../components/ConfirmToast";
+import Footer from "../components/Footer";
+
+
+
 
 const statusStyle = {
   pending: "bg-yellow-100 text-yellow-700",
@@ -64,7 +68,7 @@ function JobRow({ job, onDelete }) {
             <button onClick={() => onDelete(job._id)}
               className="text-xs bg-red-100 text-red-600 px-3 py-1.5 rounded hover:bg-red-200">Delete</button>
             <button onClick={toggleApplications}
-              className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded hover:bg-blue-700">
+              className="text-xs bg-gray-900 text-white px-3 py-1.5 rounded hover:bg-gray-900">
               {open ? "Hide" : "View Applications"}
             </button>
           </div>
@@ -127,18 +131,20 @@ export default function RecruiterDashboard() {
           <h1 className="text-xl md:text-2xl font-bold text-gray-800">Recruiter Dashboard</h1>
           <p className="text-gray-500 text-sm">Welcome, {user?.name}</p>
         </div>
-        <Link to="/post-job" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-medium">
+        <Link to="/post-job" className="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-900 text-sm font-medium">
           + Post New Job
         </Link>
       </div>
 
       {loading ? <Loading /> : jobs?.length === 0 ? (
         <div className="bg-white rounded-xl shadow p-8 text-center text-gray-500">
-          No jobs posted yet. <Link to="/post-job" className="text-blue-600 hover:underline">Post one</Link>
+          No jobs posted yet. <Link to="/post-job" className="text-gray-900 hover:underline">Post one</Link>
         </div>
       ) : (
         jobs?.map(job => <JobRow key={job._id} job={job} onDelete={handleDelete} />)
       )}
+      
+    
     </div>
   );
 }

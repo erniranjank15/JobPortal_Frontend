@@ -4,6 +4,9 @@ import { updateUserProfile, changeUserPassword, updateUserResume, deleteUserById
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { confirmToast } from "../components/ConfirmToast";
+import Footer from "../components/Footer";
+
+
 
 const inputClass = "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500";
 
@@ -59,17 +62,17 @@ export default function Profile() {
       {/* Profile Card */}
       <div className="bg-white rounded-xl shadow p-5">
         <div className="flex flex-wrap items-center gap-4 mb-5">
-          <div className="w-14 h-14 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl font-bold shrink-0">
+          <div className="w-14 h-14 rounded-full bg-gray-900 text-white flex items-center justify-center text-xl font-bold shrink-0">
             {user?.name?.charAt(0).toUpperCase()}
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-gray-800 truncate">{user?.name}</p>
             <p className="text-gray-500 text-sm truncate">{user?.email}</p>
-            <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full capitalize">{user?.role}</span>
+            <span className="text-xs bg-blue-100 text-gray-900 px-2 py-0.5 rounded-full capitalize">{user?.role}</span>
           </div>
           {user?.resume && (
             <a href={user.resume} target="_blank" rel="noreferrer"
-              className="text-sm text-blue-600 hover:underline">View Resume</a>
+              className="text-sm text-gray-900 hover:underline">View Resume</a>
           )}
         </div>
         <form onSubmit={handleProfileUpdate} className="space-y-3">
@@ -79,7 +82,7 @@ export default function Profile() {
           <input className={inputClass} type="email" placeholder="Email" value={profileForm.email}
             onChange={e => setProfileForm({ ...profileForm, email: e.target.value })} required />
           <button type="submit" disabled={loading}
-            className="w-full sm:w-auto bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 text-sm disabled:opacity-50">
+            className="w-full sm:w-auto bg-gray-900 text-white px-5 py-2 rounded-lg hover:bg-gray-900 text-sm disabled:opacity-50">
             {loading ? "Saving..." : "Save Changes"}
           </button>
         </form>
@@ -96,7 +99,7 @@ export default function Profile() {
             value={passwordForm.newPassword}
             onChange={e => setPasswordForm({ ...passwordForm, newPassword: e.target.value })} required />
           <button type="submit" disabled={loading}
-            className="w-full sm:w-auto bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 text-sm disabled:opacity-50">
+            className="w-full sm:w-auto bg-gray-900 text-white px-5 py-2 rounded-lg hover:bg-gray-900 text-sm disabled:opacity-50">
             {loading ? "Updating..." : "Update Password"}
           </button>
         </form>
@@ -111,7 +114,7 @@ export default function Profile() {
               onChange={e => setResume(e.target.files[0])}
               className="text-sm text-gray-500 w-full" required />
             <button type="submit" disabled={loading}
-              className="w-full sm:w-auto bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 text-sm disabled:opacity-50">
+              className="w-full sm:w-auto bg-gray-900 text-white px-5 py-2 rounded-lg hover:bg-gray-900 text-sm disabled:opacity-50">
               {loading ? "Uploading..." : "Upload Resume"}
             </button>
           </form>
@@ -127,6 +130,7 @@ export default function Profile() {
           Delete Account
         </button>
       </div>
+
     </div>
   );
 }

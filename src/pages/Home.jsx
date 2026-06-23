@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Footer from "../components/Footer";
 
 export default function Home() {
   const { user } = useSelector((state) => state.auth);
@@ -7,17 +8,17 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero */}
-      <div className="bg-blue-600 text-white py-16 md:py-24 px-4 text-center">
+      <div className="text-black py-16 md:py-24 px-4 text-center">
         <h1 className="text-3xl md:text-5xl font-bold mb-4">Find Your Dream Job</h1>
-        <p className="text-base md:text-lg text-blue-100 mb-8 max-w-xl mx-auto">
+        <p className="text-base md:text-lg text-gray-600 mb-8 max-w-xl mx-auto">
           Thousands of jobs from top companies. Apply in one click.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-3">
-          <Link to="/jobs" className="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50">
+          <Link to="/jobs" className=" bg-gray-900 border text-white font-semibold px-6 py-3 rounded-lg hover:bg-white text-bg-gray-900 hover:text-gray-900 hover:border-gray-900">
             Browse Jobs
           </Link>
           {!user && (
-            <Link to="/register" className="border border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700">
+            <Link to="/register" className=" bg-gray-900 border text-white font-semibold px-6 py-3 rounded-lg hover:bg-white text-bg-gray-900 hover:text-gray-900 hover:border-gray-900">
               Get Started
             </Link>
           )}
@@ -39,16 +40,12 @@ export default function Home() {
         ))}
       </div>
 
-      {/* CTA */}
-      {!user && (
-        <div className="bg-blue-50 py-12 text-center px-4">
-          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-3">Ready to get started?</h2>
-          <p className="text-gray-500 mb-6 text-sm md:text-base">Join as an applicant or post jobs as a recruiter.</p>
-          <Link to="/register" className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 font-semibold">
-            Create Account
-          </Link>
-        </div>
-      )}
+    <Footer />
+
+
     </div>
+    
+
+  
   );
 }
