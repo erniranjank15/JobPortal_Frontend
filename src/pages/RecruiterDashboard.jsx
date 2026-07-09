@@ -90,6 +90,10 @@ function JobRow({ job, onDelete }) {
                   <div className="min-w-0">
                     <p className="font-medium text-gray-800 text-sm">{app.applicant?.name}</p>
                     <p className="text-gray-500 text-xs">{app.applicant?.email}</p>
+                       {user?.resume && (
+          <a href={user.resume} target="_blank" rel="noreferrer"
+            className="text-sm text-gray-900 hover:underline whitespace-nowrap">View Resume</a>
+        )}
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
                     <span className={`text-xs px-2 py-1 rounded-full font-medium capitalize ${statusStyle[app.status] || "bg-gray-100 text-gray-600"}`}>
