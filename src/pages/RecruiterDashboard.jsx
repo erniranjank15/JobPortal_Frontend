@@ -90,12 +90,28 @@ function JobRow({ job, onDelete }) {
                   <div className="min-w-0">
                     <p className="font-medium text-gray-800 text-sm">{app.applicant?.name}</p>
                     <p className="text-gray-500 text-xs">{app.applicant?.email}</p>
-                       
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
                     <span className={`text-xs px-2 py-1 rounded-full font-medium capitalize ${statusStyle[app.status] || "bg-gray-100 text-gray-600"}`}>
                       {app.status}
                     </span>
+                    {app.applicant?.resume ? (
+                      <a
+                        href={app.applicant.resume}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 flex items-center gap-1"
+                      >
+                        View Resume
+                      </a>
+                    ) : (
+                      <button
+                        onClick={() => toast.info("No resume uploaded by this applicant.")}
+                        className="text-xs bg-gray-200 text-gray-500 px-2 py-1 rounded cursor-not-allowed"
+                      >
+                        No Resume
+                      </button>
+                    )}
                     <button onClick={() => handleStatus(app._id, "shortlisted")}
                       className="text-xs bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600">✓ Shortlist</button>
                     <button onClick={() => handleStatus(app._id, "rejected")}
@@ -144,8 +160,8 @@ export default function RecruiterDashboard() {
       ) : (
         jobs?.map(job => <JobRow key={job._id} job={job} onDelete={handleDelete} />)
       )}
-      
-    
+
+
     </div>
   );
 }
