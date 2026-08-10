@@ -14,25 +14,29 @@ const inputClass = "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm f
 export default function EditJob() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { jobDetails, loading } = useSelector((state) => state.job);
-  const [form, setForm] = useState(null);
-
-  useEffect(() => { dispatch(getJobByIdThunk(id)); }, [id]);
 
   useEffect(() => {
-    if (jobDetails) {
-      setForm({
-        title: jobDetails.title || "",
-        description: jobDetails.description || "",
-        company: jobDetails.company || "",
-        location: jobDetails.location || "",
-        jobType: jobDetails.jobType || "Full-time",
-        skills: Array.isArray(jobDetails.skills) ? jobDetails.skills.join(", ") : "",
-        salary: jobDetails.salary || "",
-      });
-    }
-  }, [jobDetails]);
+    dispatch(getJobByIdThunk(id));
+  }, [dispatch, id]);
+
+  if (loading || !jobDetails) return <Loading />;
+
+  return <EditJobForm jobDetails={jobDetails} id={id} loading={loading} />;
+}
+
+function EditJobForm({ jobDetails, id, loading }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    title: jobDetails.title || "",
+    description: jobDetails.description || "",
+    company: jobDetails.company || "",
+    location: jobDetails.location || "",
+    jobType: jobDetails.jobType || "Full-time",
+    skills: Array.isArray(jobDetails.skills) ? jobDetails.skills.join(", ") : "",
+    salary: jobDetails.salary || "",
+  });
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -56,8 +60,6 @@ export default function EditJob() {
       }
     });
   };
-
-  if (loading || !form) return <Loading />;
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
@@ -89,8 +91,6 @@ export default function EditJob() {
           </button>
         </div>
       </form>
-
-
     </div>
   );
 }
