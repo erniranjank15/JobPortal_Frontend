@@ -52,6 +52,10 @@ const authSlice = createSlice({
             .addCase(deleteUserById.fulfilled, (state, action) => {
                 state.loading = false;
                 state.allUsers = state.allUsers.filter(u => u._id !== action.payload);
+                if (state.user && state.user._id === action.payload) {
+                    state.user = null;
+                    state.isAuthenticated = false;
+                }
             })
             .addCase(deleteUserById.rejected, (state, action) => { state.loading = false; state.error = action.payload; });
     }
