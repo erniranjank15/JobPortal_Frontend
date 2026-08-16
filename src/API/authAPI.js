@@ -11,3 +11,7 @@ export const changePassword = async (passwordData) => API.put('/users/change-pas
 export const updateResume = async (resumeFile) => API.patch('/users/update-resume', resumeFile);
 export const getAllUsers = async () => API.get('/users/all-users');
 export const deleteUser = async (userId) => API.delete(`/users/delete-user/${userId}`);
+
+// Forgot Password & Reset Password
+export const forgotPassword = async (email) => API.post('/users/forgot-password', { email });
+export const resetPassword = async (token, passwordData) => API.post(`/users/reset-password/${token}`, passwordData);
