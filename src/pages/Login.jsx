@@ -5,7 +5,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Footer from "../components/Footer";
 
-
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,11 +41,10 @@ export default function Login() {
         <p className="text-center text-sm text-gray-500">
           No account? <Link to="/register" className="text-gray-900 hover:underline">Register</Link>
         </p>
+        <p className="text-center text-sm text-gray-500">
+          <Link to="/forgot-password" className="text-gray-900 hover:underline">Forgot Password?</Link>
+        </p>
       </form>
-
-
-
-
     </div>
   );
 }
