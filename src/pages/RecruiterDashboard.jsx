@@ -95,6 +95,23 @@ function JobRow({ job, onDelete }) {
                     <span className={`text-xs px-2 py-1 rounded-full font-medium capitalize ${statusStyle[app.status] || "bg-gray-100 text-gray-600"}`}>
                       {app.status}
                     </span>
+                    {app.applicant?.resume ? (
+                      <a
+                        href={app.applicant.resume}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 flex items-center gap-1"
+                      >
+                        View Resume
+                      </a>
+                    ) : (
+                      <button
+                        onClick={() => toast.info("No resume uploaded by this applicant.")}
+                        className="text-xs bg-gray-200 text-gray-500 px-2 py-1 rounded cursor-not-allowed"
+                      >
+                        No Resume
+                      </button>
+                    )}
                     <button onClick={() => handleStatus(app._id, "shortlisted")}
                       className="text-xs bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600">✓ Shortlist</button>
                     <button onClick={() => handleStatus(app._id, "rejected")}
@@ -115,7 +132,7 @@ export default function RecruiterDashboard() {
   const { user } = useSelector((state) => state.auth);
   const { jobs, loading } = useSelector((state) => state.job);
 
-  useEffect(() => { dispatch(getAllJobsThunk()); }, []);
+  useEffect(() => { dispatch(getAllJobsThunk()); }, [dispatch]);
 
   const handleDelete = (id) => {
     confirmToast("Are you sure you want to delete this job?", () => {
@@ -123,6 +140,11 @@ export default function RecruiterDashboard() {
       toast.success("Job deleted!");
     });
   };
+
+  const recruiterJobs = jobs?.filter(job => {
+    const postedById = typeof job.postedBy === "object" ? job.postedBy?._id : job.postedBy;
+    return postedById === user?._id;
+  }) || [];
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 md:py-8">
@@ -136,15 +158,15 @@ export default function RecruiterDashboard() {
         </Link>
       </div>
 
-      {loading ? <Loading /> : jobs?.length === 0 ? (
+      {loading ? (
+        <Loading />
+      ) : recruiterJobs.length === 0 ? (
         <div className="bg-white rounded-xl shadow p-8 text-center text-gray-500">
           No jobs posted yet. <Link to="/post-job" className="text-gray-900 hover:underline">Post one</Link>
         </div>
       ) : (
-        jobs?.map(job => <JobRow key={job._id} job={job} onDelete={handleDelete} />)
+        recruiterJobs.map(job => <JobRow key={job._id} job={job} onDelete={handleDelete} />)
       )}
-      
-    
     </div>
   );
 }

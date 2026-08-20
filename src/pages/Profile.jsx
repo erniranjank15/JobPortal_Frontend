@@ -50,7 +50,7 @@ export default function Profile() {
       const res = await dispatch(deleteUserById(user._id));
       if (res.meta.requestStatus === "fulfilled") {
         toast.success("Account deleted");
-        navigate("/");
+        navigate("/login");
       } else toast.error(res.payload || "Delete failed");
     });
   };

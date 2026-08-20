@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { register, login, logout, getCurrentUser, updateProfile, changePassword, updateResume, getAllUsers, deleteUser } from "../../API/authAPI.js";
+import { register, login, logout, getCurrentUser, updateProfile, changePassword, updateResume, getAllUsers, deleteUser, forgotPassword, resetPassword } from "../../API/authAPI.js";
 
 export const registerUser = createAsyncThunk('auth/registerUser', async (userData, { rejectWithValue }) => {
     try { return (await register(userData)).data.data; }
@@ -44,4 +44,15 @@ export const fetchAllUsers = createAsyncThunk('auth/fetchAllUsers', async (_, { 
 export const deleteUserById = createAsyncThunk('auth/deleteUserById', async (userId, { rejectWithValue }) => {
     try { await deleteUser(userId); return userId; }
     catch (error) { return rejectWithValue(error || 'Failed to delete user'); }
+});
+
+// Forgot Password & Reset Password
+export const forgotPasswordUser = createAsyncThunk('auth/forgotPasswordUser', async (email, { rejectWithValue }) => {
+    try { return (await forgotPassword(email)).data; }
+    catch (error) { return rejectWithValue(error || 'Failed to send reset email'); }
+});
+
+export const resetPasswordUser = createAsyncThunk('auth/resetPasswordUser', async ({ token, passwordData }, { rejectWithValue }) => {
+    try { return (await resetPassword(token, passwordData)).data; }
+    catch (error) { return rejectWithValue(error || 'Failed to reset password'); }
 });

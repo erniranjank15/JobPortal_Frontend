@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { getJobByIdThunk } from "../features/job/jobThunk";
 import { applyForJobThunk } from "../features/application/applnThunk";
 import Loading from "../components/Loading";
@@ -67,12 +67,12 @@ export default function JobDetails() {
         )}
         {!user && (
           <p className="text-sm text-gray-500">
-            <a href="/login" className="text-gray-900 hover:underline">Login</a> to apply for this job.
+            <Link to="/login" className="text-gray-900 hover:underline">Login</Link> to apply for this job.
           </p>
         )}
       </div>
 
-    
+
     </div>
   );
 }

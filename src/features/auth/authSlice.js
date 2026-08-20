@@ -1,12 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registerUser, loginUser, logoutUser, fetchCurrentUser, updateUserProfile, changeUserPassword, updateUserResume, fetchAllUsers, deleteUserById } from "./authThunk.js";
+import { registerUser, loginUser, logoutUser, fetchCurrentUser, updateUserProfile, changeUserPassword, updateUserResume, fetchAllUsers, deleteUserById, forgotPasswordUser, resetPasswordUser } from "./authThunk.js";
 
-const initialState = { user: null, loading: false, error: null, allUsers: [], isAuthenticated: false };
+const initialState = { user: null, loading: false, error: null, allUsers: [], isAuthenticated: false, forgotPasswordLoading: false, forgotPasswordError: null, resetPasswordLoading: false, resetPasswordError: null };
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        clearForgotPasswordError: (state) => { state.forgotPasswordError = null; },
+        clearResetPasswordError: (state) => { state.resetPasswordError = null; }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(registerUser.pending, (state) => { state.loading = true; state.error = null; })
@@ -52,9 +55,24 @@ const authSlice = createSlice({
             .addCase(deleteUserById.fulfilled, (state, action) => {
                 state.loading = false;
                 state.allUsers = state.allUsers.filter(u => u._id !== action.payload);
+                if (state.user && state.user._id === action.payload) {
+                    state.user = null;
+                    state.isAuthenticated = false;
+                }
             })
-            .addCase(deleteUserById.rejected, (state, action) => { state.loading = false; state.error = action.payload; });
+            .addCase(deleteUserById.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+
+            // Forgot Password
+            .addCase(forgotPasswordUser.pending, (state) => { state.forgotPasswordLoading = true; state.forgotPasswordError = null; })
+            .addCase(forgotPasswordUser.fulfilled, (state) => { state.forgotPasswordLoading = false; })
+            .addCase(forgotPasswordUser.rejected, (state, action) => { state.forgotPasswordLoading = false; state.forgotPasswordError = action.payload; })
+
+            // Reset Password
+            .addCase(resetPasswordUser.pending, (state) => { state.resetPasswordLoading = true; state.resetPasswordError = null; })
+            .addCase(resetPasswordUser.fulfilled, (state) => { state.resetPasswordLoading = false; })
+            .addCase(resetPasswordUser.rejected, (state, action) => { state.resetPasswordLoading = false; state.resetPasswordError = action.payload; });
     }
 });
 
+export const { clearForgotPasswordError, clearResetPasswordError } = authSlice.actions;
 export default authSlice.reducer;
