@@ -23,7 +23,7 @@ export default function Register() {
       toast.success("Registered successfully! Please login.");
       navigate("/login");
     } else {
-      toast.error(res.payload?.message || "Registration failed");
+      toast.error(typeof res.payload === "string" ? res.payload : (res.payload?.message || "Registration failed"));
     }
   };
 

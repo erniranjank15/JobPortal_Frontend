@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-// https://vite.dev/config/
+
 export default defineConfig({
   server: {
-    proxy:{
+    proxy: {
       '/api/v1': {
-        target: 'http://localhost:3000',
+        target: 'https://job-portal-bzx9.onrender.com',
         changeOrigin: true,
         secure: false,
       }
